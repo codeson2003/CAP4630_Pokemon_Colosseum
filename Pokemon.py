@@ -53,7 +53,7 @@ class Pokemon:
                 return moves_data
             
     def damage(M,A,B):
-        power = [M]['Power']
+        power = [M]['Power'][A][B]
         random_val = random.uniform(0.5,1.0)
         return power * random_val
     

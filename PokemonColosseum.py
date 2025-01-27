@@ -13,10 +13,10 @@ playerName = input("Enter Player Name: ")
 print()
 
 manager = Pokemon()
-manager.load_pokemon('pokemon-data.csv')
-manager.load_moves('moves-data.csv')
+pokemon_data = manager.load_pokemon('pokemon-data.csv')
+move_data = manager.load_moves('moves-data.csv')
 
-opponent_pokemon = random.sample(list(manager.pokemon_moves.keys()), 3)
+opponent_pokemon = random.sample(list(pokemon_data.keys()), 3)
 print("Team Rocket enters with ", end='')
 for i,key in enumerate(opponent_pokemon):
     if i == 2:
@@ -25,7 +25,7 @@ for i,key in enumerate(opponent_pokemon):
         print(key + ', ', end='')
 
 
-remaining_pokemon = list(set(manager.pokemon_moves.keys()) - set(opponent_pokemon))
+remaining_pokemon = list(set(pokemon_data.keys()) - set(opponent_pokemon))
 user_pokemon = random.sample(remaining_pokemon, 3)
 
 print(f"Team {playerName} enters with ", end='')
