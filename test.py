@@ -26,8 +26,8 @@ with open(pokemon_filename) as csvfile:
                     end_of_moves = False
         #print(moves)
         pokemon_moves[row[0]] = ast.literal_eval(moves) # string to list
-for key in pokemon_moves:
-    print(key, "moves: ", pokemon_moves[key])
+#for key in pokemon_moves:
+    #print(key, "moves: ", pokemon_moves[key])
 
 moves_data_filename = os.path.join(project_dir,'moves-data.csv')
 with open(moves_data_filename) as csvfile:
@@ -36,25 +36,39 @@ with open(moves_data_filename) as csvfile:
     for row in reader:
         moves=''
         end_of_moves=False
-        for s in row:
-            print(s + ",",end='')
-        print("\n")
+        #for s in row:
+            #print(s + ",",end='')
+        #print("\n")
         
-print("Welcome to Pokemon Colosseum!")
+print("\nWelcome to Pokemon Colosseum!\n")
 playerName = input("Enter Player Name: ")
-random_pokemon = random.sample(list(pokemon_moves.keys()), 3)
-for key in random_pokemon:
-    print(key + ' ', end='')
-
 print()
+
+random_pokemon = random.sample(list(pokemon_moves.keys()), 3)
+print("Team Rocket enters with ", end='')
+for i,key in enumerate(random_pokemon):
+    if i == 2:
+        print(key + '.\n')
+    else:
+        print(key + ', ', end='')
+
 
 remaining_pokemon = list(set(pokemon_moves.keys()) - set(random_pokemon))
 opponent_pokemon = random.sample(remaining_pokemon, 3)
 
-for key in opponent_pokemon:
-    print(key + ' ', end='')
+print(f"Team {playerName} enters with ", end='')
+for i,key in enumerate(opponent_pokemon):
+    if i == 2:
+        print(key + '.\n')
+    else:
+        print(key + ', ', end='')
 
-print()
 
+#1 is heads, 2 is tails
+coin_toss = random.randint(1,2)
+
+coin_toss_result = "rocket" if coin_toss == 2 else "professor"
+
+print(coin_toss_result)
 
 
