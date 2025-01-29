@@ -13,10 +13,10 @@ playerName = input("Enter Player Name: ")
 print()
 
 manager = Pokemon()
-pokemon_data = manager.load_pokemon('pokemon-data.csv')
-move_data = manager.load_moves('moves-data.csv')
+manager.pokemon_data = manager.load_pokemon('pokemon-data.csv')
+manager.move_data = manager.load_moves('moves-data.csv')
 
-opponent_pokemon = random.sample(list(pokemon_data.keys()), 3)
+opponent_pokemon = random.sample(list(manager.pokemon_data.keys()), 3)
 print("Team Rocket enters with ", end='')
 for i,key in enumerate(opponent_pokemon):
     if i == 2:
@@ -25,7 +25,7 @@ for i,key in enumerate(opponent_pokemon):
         print(key + ', ', end='')
 
 
-remaining_pokemon = list(set(pokemon_data.keys()) - set(opponent_pokemon))
+remaining_pokemon = list(set(manager.pokemon_data.keys()) - set(opponent_pokemon))
 user_pokemon = random.sample(remaining_pokemon, 3)
 
 print(f"Team {playerName} enters with ", end='')
@@ -35,25 +35,34 @@ for i,key in enumerate(user_pokemon):
     else:
         print(key + ', ', end='')
 
-
 #1 is heads, 2 is tails
 coin_toss = random.randint(1,2)
-
 coin_toss_result = "Rocket" if coin_toss == 2 else playerName
-
 print("Let the battle begin!")
 print(f"Coin toss goes to ----- Team {coin_toss_result} to start the attack!\n")
 
+nextUp = coin_toss_result
+i = 1
 while len(opponent_pokemon) != 0 and len(user_pokemon) != 0:
+    user = user_pokemon[0]
+    opponent = opponent_pokemon[0]
 
-    if coin_toss_result == "Rocket":
-        print("YEET")
-    elif coin_toss_result == playerName:
-        print("yeet")
+    if nextUp == playerName:
+        manager.menu(user)
+        attack = input(f"Team {playerName}'s choice: ")
+        print()
+    elif nextUp == "Rocket":
+        rocketAttack = random.randint(1, manager.teamrocketattack(opponent))
+        print(f"Team Rocket's {opponent} cast {rocketAttack} to {user}")
+
+    
     print(manager.damage("Karate Chop", "A", "B"))
-    opponent_pokemon.pop(0)
-
-    coin_toss_result = "irrelevant"
+    
+    nextUp = playerName if nextUp == "Rocket" else "Rocket"
+    
+    i+=1
+    if i == 10:
+        break
 
     
     
